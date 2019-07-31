@@ -12,5 +12,7 @@ namespace Test1.Repositories.System
         IEnumerable<UserDto> GetUsers();
 
         UserDto GetUser(int userId);
+
+        int AddUser(UserCreationDto user);
     }
 }

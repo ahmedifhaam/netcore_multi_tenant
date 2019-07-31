@@ -13,6 +13,7 @@ namespace Test1.MapperProfile
         public SystemProfile()
         {
             CreateMap<UserEntity, UserDto>();
+            CreateMap<UserCreationDto, UserEntity>();
         }
     }
 }
