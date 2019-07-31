@@ -14,6 +14,7 @@ namespace Test1.Models.System
         public string Username { get; set; }
 
         [MaxLength(100)]
+        [Required]
         public string Password { get; set; }
 
         [Required]
