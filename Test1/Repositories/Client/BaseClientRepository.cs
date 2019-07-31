@@ -6,7 +6,7 @@ using Test1.Contexts.Client;
 
 namespace Test1.Repositories.Client
 {
-    public class BaseClientRepository
+    public class BaseClientRepository:IBaseClientRepository
     {
 
         protected DatabaseContext db;

@@ -7,7 +7,7 @@ using Test1.Entities.Client;
 
 namespace Test1.Repositories.Client
 {
-    public class BranchRepository:BaseClientRepository
+    public class BranchRepository:BaseClientRepository,IBranchRepository
     {
 
         public BranchRepository(DatabaseContextFactory databaseContextFactory) :base(databaseContextFactory)

@@ -9,7 +9,7 @@ using Test1.Entities.System;
 
 namespace Test1.Repositories.System
 {
-    public class SystemRepository
+    public class SystemRepository:ISystemRepository
 
     {
         private SystemDbContext _systemDbContext;
@@ -20,16 +20,6 @@ namespace Test1.Repositories.System
         {
             _systemDbContext = systemDbContext;
         }
-
-
-        //public string getConnectionString(string userId)
-        //{
-
-        //    var user =_systemDbContext.Users.Where(u => u.Username == userId)
-        //        .FirstOrDefault();
-
-        //    var client = _systemDbContext.Clients.Where(c => c.ClientId == user.ClientEntityId);
-        //}
 
 
         public string getConnectiongString(int clientId)
@@ -45,6 +35,7 @@ namespace Test1.Repositories.System
 
         private string buildConnectionStringFromClient(ClientEntity client)
         {
+            if (client == default(ClientEntity)) return null;
             //AHMED - I\\SQLSERVERIFHAAM; Database = SystemDb; Trusted_Connection = True
             StringBuilder builder = new StringBuilder("Server=");
             builder.Append(client.Server).Append(";")
@@ -53,5 +44,6 @@ namespace Test1.Repositories.System
             Debug.WriteLine(builder.ToString());
             return builder.ToString();
         }
+
     }
 }

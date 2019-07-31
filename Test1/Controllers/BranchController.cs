@@ -15,10 +15,10 @@ namespace Test1.Controllers
     public class BranchController:Controller
     {
 
-        private readonly SystemRepository systemRepository;
-        private readonly BranchRepository branchRepository;
+        private readonly ISystemRepository systemRepository;
+        private readonly IBranchRepository branchRepository;
 
-        public BranchController(SystemRepository systemRepository,BranchRepository branchRepository)
+        public BranchController(ISystemRepository systemRepository,IBranchRepository branchRepository)
         {
             this.systemRepository = systemRepository;
             this.branchRepository = branchRepository;
@@ -27,13 +27,24 @@ namespace Test1.Controllers
         [HttpGet]
         public IActionResult getBranches([FromQuery] int clientId)
         {
-            branchRepository.InitializeDatabaseContext(systemRepository.getConnectiongString(clientId));
+
+            if (clientId == default(int)) return BadRequest("Please Specify a ClientID");
+            var connectionString = systemRepository.getConnectiongString(clientId);
+            if (connectionString == null) return BadRequest("Client not found");
+            branchRepository.InitializeDatabaseContext(connectionString);
+
+
             return Ok(branchRepository.getBranches());
         }
 
         [HttpGet("{branchId}")]
         public IActionResult getBranch([FromQuery] int clientId,int branchId)
         {
+            if (clientId == default(int)) return BadRequest("Please Specify a ClientID");
+            var connectionString = systemRepository.getConnectiongString(clientId);
+            if (connectionString == null) return BadRequest("Client not found");
+            branchRepository.InitializeDatabaseContext(connectionString);
+
             branchRepository.InitializeDatabaseContext(systemRepository.getConnectiongString(clientId));
             return Ok(branchRepository.getBranch(branchId));
         }
